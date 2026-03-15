@@ -1,3 +1,5 @@
 server_bin
 client_bin
+injector_bin
+sniffer_bin
 *.exe

@@ -9,12 +9,12 @@ import (
 func main() {
 	fd, err := syscall.Socket(syscall.AF_INET, syscall.SOCK_RAW, syscall.IPPROTO_TCP)
 	if err != nil {
-		fmt.Printf("Błąd: %v. Czy użyłeś SUDO?\n", err)
+		fmt.Printf("Błąd: %v. Brak uprawnień do surowych gniazd (wymagane cap_net_raw).\n", err)
 		return
 	}
 	defer syscall.Close(fd)
 
-	fmt.Println("Filtr ustawiony na port 8888. Czekam na Twoje pakiety...")
+	fmt.Println("Filtr ustawiony na port 80. Czekam na Twoje pakiety...")
 
 	buf := make([]byte, 1500)
 	for {
@@ -30,7 +30,7 @@ func main() {
 			destPort := binary.BigEndian.Uint16(buf[22:24])
 
 			// FILTR: Pokaż tylko jeśli port docelowy to 8888
-			if destPort == 8888 {
+			if destPort == 80 {
 				fmt.Printf("\n🎯 WYŁAPANO PAKIET DO SERWERA (Port: %d)\n", destPort)
 				fmt.Printf("Długość całkowita: %d bajtów\n", n)
 				fmt.Printf("Nagłówek IP (HEX): % x\n", buf[:20])

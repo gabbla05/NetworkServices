@@ -18,7 +18,7 @@ func main() {
 	// AF_INET = IPv4, SOCK_RAW = surowe bajty, IPPROTO_ICMP = protokół kontrolny sieci
 	fd, err := syscall.Socket(syscall.AF_INET, syscall.SOCK_RAW, syscall.IPPROTO_ICMP)
 	if err != nil {
-		fmt.Printf("Błąd gniazda: %v (czy użyłeś sudo?)\n", err)
+		fmt.Printf("Błąd: %v. Brak uprawnień do surowych gniazd (wymagane cap_net_raw).\n", err)
 		return
 	}
 	defer syscall.Close(fd)

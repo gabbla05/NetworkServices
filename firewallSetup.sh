@@ -2,7 +2,7 @@
 
 # Skrypt do zarządzania ruchem sieciowym (iptables) na ocenę 5.0
 
-PORT=8888
+PORT=80
 
 case "$1" in
     block)
